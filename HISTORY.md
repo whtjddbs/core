@@ -63,3 +63,24 @@ https://start.spring.io/
 2. 스프링 빈 등록<br/>
 3. 스프링 빈 의존관계 설정 - 준비<br/>
 4. 스프링 빈 의존관계 설정 - 완료<br/>
+---
+###2024-01-15  
+####스프링 빈 조회 해보기
+
+---
+###2024-01-16
+1. 설정 정보를 AppConfig.java에서 xml설정으로 변경해보기  
+2. 스프링은 BeanDefinition이라는 추상화를 통해 빈 설정 메타정보를 생성을 위한 역할을 만들고
+   java 설정파일이나 xml 설정파일을 읽고 BeanDefinition을 실제로 생성하는 구현체를 통해 다양한 설정 형식을 지원한다.  
+> ####BeanDefinition 정보  
+* BeanClassName: 생성할 빈의 클래스 명(자바 설정 처럼 팩토리 역할의 빈을 사용하면 없음)  
+* factoryBeanName: 팩토리 역할의 빈을 사용할 경우 이름, 예) appConfig  
+* factoryMethodName: 빈을 생성할 팩토리 메서드 지정, 예) memberService  
+* Scope: 싱글톤(기본값)  
+* lazyInit: 스프링 컨테이너를 생성할 때 빈을 생성하는 것이 아니라, 실제 빈을 사용할 때 까지 최대한 생성을 지연
+처리 하는지 여부  
+* InitMethodName: 빈을 생성하고, 의존관계를 적용한 뒤에 호출되는 초기화 메서드 명  
+* DestroyMethodName: 빈의 생명주기가 끝나서 제거하기 직전에 호출되는 메서드 명  
+* Constructor arguments, Properties: 의존관계 주입에서 사용한다. (자바 설정 처럼 팩토리 역할의 빈을 사용
+하면 없음)
+---
