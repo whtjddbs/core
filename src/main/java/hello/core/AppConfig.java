@@ -22,24 +22,55 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class AppConfig {
+
+    /*
+    예상 시나리오
+    @Bean memberService -> memberRepository()
+    call AppConfig.memberService
+    call AppConfig.memberRepository
+
+    @Bean memberRepository
+    call AppConfig.memberRepository
+
+    @Bean orderService -> memberRepository(), discountPolicy()
+    call AppConfig.orderService
+    call AppConfig.memberRepository
+    call AppConfig.discountPolicy
+
+    @Bean discountPolicy
+    call AppConfig.discountPolicy
+     */
+
+    /*
+    실제 결과는 한번씩만 호출됨
+    call AppConfig.memberService
+    call AppConfig.memberRepository
+    call AppConfig.orderService
+    call AppConfig.discountPolicy
+     */
+
     @Bean
     public MemberService memberService() {
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public MemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService() {
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
     /* 할인 정책 변경 시 discountPolicy에서 구현체만 변경하면 된다. */
     @Bean
     public DiscountPolicy discountPolicy() {
+        System.out.println("call AppConfig.discountPolicy");
         return new RateDiscountPolicy();
     }
 
