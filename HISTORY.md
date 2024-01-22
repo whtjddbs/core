@@ -120,3 +120,24 @@ https://start.spring.io/
 이때 기본 조회 전략은 타입이 같은 빈을 찾아서 주입한다.  
 getBean(MemberRepository.class) 와 동일하다고 이해하면 된다
 ---
+###2024-01-23
+####컴포넌트 스캔의 탐색 위치와 기본 스캔 대상
+1. 탐색 위치 
+* basePackages : 탐색할 패키지의 시작 위치를 지정한다. 이 패키지를 포함해서 하위 패키지를 모두 탐색한다.
+  * basePackages = {"hello.core", "hello.service"} 이렇게 여러 시작 위치를 지정할 수도 있다. 
+* basePackageClasses : 지정한 클래스의 패키지를 탐색 시작 위치로 지정한다.
+* 만약 지정하지 않으면 @ComponentScan 이 붙은 설정 정보 클래스의 패키지가 시작 위치가 된다.  
+※ 권장하는 방법 : 
+  패키지 위치를 지정하지 않고, 설정 정보 클래스의 위치를 프로젝트 최상단에 위치. 최근 스프링 부트도 이 방법을 기본으로 제공한다.  
+  
+2. 기본 스캔 대상
+* 컴포넌트 스캔은 @Component 뿐만 아니라 다음과 내용도 추가로 대상에 포함한다.
+  * @Component : 컴포넌트 스캔에서 사용
+  * @Controller : 스프링 MVC 컨트롤러에서 사용
+  * @Service : 스프링 비즈니스 로직에서 사용
+  * @Repository : 스프링 데이터 접근 계층에서 사용
+  * @Configuration : 스프링 설정 정보에서 사용
+  
+####컴포넌트 스캔 필터
+includeFilters, excludeFilters
+---
