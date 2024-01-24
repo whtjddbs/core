@@ -19,10 +19,10 @@ public class OrderServiceImpl implements OrderService {
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
     //AppConfig을 통해 구현체 주입을 하도록 변경하여 DIP 위반 문제 해결
-    private MemberRepository memberRepository;
-    private DiscountPolicy discountPolicy;
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
-    @Autowired
+    @Autowired //생성자가 딱 1개만 있는 경우 @Autowired를 생략해도 자동으로 의존관계 주입을 한다.
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
