@@ -65,6 +65,7 @@ public class AppConfig {
     public OrderService orderService() {
         System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
+//        return null;
     }
 
     /* 할인 정책 변경 시 discountPolicy에서 구현체만 변경하면 된다. */

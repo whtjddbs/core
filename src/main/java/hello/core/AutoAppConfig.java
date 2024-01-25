@@ -15,8 +15,10 @@ import org.springframework.context.annotation.FilterType;
 public class AutoAppConfig {
 
     /* 빈 이름 중복 시 충돌 오류 발생 확인을 위한 코드 */
-//    @Bean(name = "memoryMemberRepository")
-//    public MemberRepository memberRepository() {
-//        return new MemoryMemberRepository();
-//    }
+    /*
+    @Bean(name = "memoryMemberRepository")
+    public MemberRepository memberRepository() {
+        return new MemoryMemberRepository();
+    }
+    */
 }
