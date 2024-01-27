@@ -160,3 +160,6 @@ includeFilters, excludeFilters
 * org.springframework.lang.@Nullable : 자동 주입할 대상이 없으면 null이 입력된다.
 * Optional<> : 자동 주입할 대상이 없으면 Optional.empty 가 입력된다
 <!-- AutowiredOption.java 에서 테스트 -->
+###2024-01-27  
+####생성자 주입을 선택한 코드  
+####롬복과 최신 트랜드
