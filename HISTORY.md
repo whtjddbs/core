@@ -160,6 +160,26 @@ includeFilters, excludeFilters
 * org.springframework.lang.@Nullable : 자동 주입할 대상이 없으면 null이 입력된다.
 * Optional<> : 자동 주입할 대상이 없으면 Optional.empty 가 입력된다
 <!-- AutowiredOption.java 에서 테스트 -->
+---  
 ###2024-01-27  
 ####생성자 주입을 선택한 코드  
 ####롬복과 최신 트랜드
+--- 
+###2024-01-29  
+####조회 빈이 2개 이상일 때 문제 해결  
+1. @Autowired 필드명 매칭
+    1) 타입 매칭
+    2) 타입 매칭의 결과가 2개 이상일 때 필드명, 파라미터명으로 빈이름 매칭
+2. @Qualifier 사용
+    1) 같은 @Qualifier끼리 매칭
+    2) 같은 빈 이름 매칭
+    3) NoSuchBeanDefinitionException 예외 발생
+3. @Primary 사용
+    1) 우선 순위를 부여한다.
+> @Primary 는 기본값 처럼 동작하는 것이고, @Qualifier 는 매우 상세하게 동작한다. 이런 경우 어떤 것이 우선권을
+가져갈까? 스프링은 자동보다는 수동이, 넒은 범위의 선택권 보다는 좁은 범위의 선택권이 우선 순위가 높다. 따라서 여
+기서도 @Qualifier 가 우선권이 높다
+####애노테이션 직접 만들기
+* @Qualifier("mainDiscountPolicy") 처럼 문자를 적으면서 타이핑 오류를 했을 경우, 컴파일 시 타입 체크가 되지 않는다.
+직접 애노테이션을 만들어서 이러한 문제를 해결 → @MainDiscountPolicy 생성
+---  
