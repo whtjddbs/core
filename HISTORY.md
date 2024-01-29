@@ -183,3 +183,8 @@ includeFilters, excludeFilters
 * @Qualifier("mainDiscountPolicy") 처럼 문자를 적으면서 타이핑 오류를 했을 경우, 컴파일 시 타입 체크가 되지 않는다.
 직접 애노테이션을 만들어서 이러한 문제를 해결 → @MainDiscountPolicy 생성
 ---  
+###2024-01-30
+####조회한 빈이 모두 사용
+* 상황에 따라서 여러 할인 정책을 사용해야할 경우, 모든 빈(할인 정책 rate, fix)을 모두 사용해야 한다.  
+* 이 경우 스프링을 사용하면 List, Map을 사용하여 간단하게 전략 패턴을 구현 가능
+---  
