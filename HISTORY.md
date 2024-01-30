@@ -188,3 +188,25 @@ includeFilters, excludeFilters
 * 상황에 따라서 여러 할인 정책을 사용해야할 경우, 모든 빈(할인 정책 rate, fix)을 모두 사용해야 한다.  
 * 이 경우 스프링을 사용하면 List, Map을 사용하여 간단하게 전략 패턴을 구현 가능
 ---  
+### 2024-01-31  
+#### 의존관계 주입 : 자동 vs 수동  
+* 편리한 자동 기능을 기본으로 사용하자(스프링 부트는 자동으로 컴포넌트스캔을 함)
+* 직접 등록하는 기술 지원 객체는 수동 빈 등록
+* 다형성을 적극 활용하는 비즈니스 로직은 수동 등록을 고려  
+```java
+@Configuration
+public class DiscountPolicyConfig {
+    @Bean
+    public DiscountPolicy rateDiscountPolicy() {
+        return new RateDiscountPolicy();
+    }
+    @Bean
+    public DiscountPolicy fixDiscountPolicy() {
+        return new FixDiscountPolicy();
+    }
+}
+```
+---
+## 빈 생명주기 콜백
+### 빈 생명주기 시작
+
