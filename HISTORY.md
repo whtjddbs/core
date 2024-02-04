@@ -252,3 +252,4 @@ public class DiscountPolicyConfig {
 * 코드를 고칠 수 없는 외부 라이브러리를 초기화, 종료해야 하면 @Bean 의 initMethod , destroyMethod 를
 사용하자
 ---
+## 빈 스코프
