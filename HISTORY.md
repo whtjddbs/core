@@ -253,3 +253,29 @@ public class DiscountPolicyConfig {
 사용하자
 ---
 ## 빈 스코프
+* <b>싱글톤</b>: 기본 스코프, 스프링 컨테이너의 시작과 종료까지 유지되는 가장 넓은 범위의 스코프이다.
+* <b>프로토타입</b> : 스프링 컨테이너는 프로토타입 빈의 생성과 의존관계 주입까지만 관여하고 더는 관리하지 않는 매우
+  짧은 범위의 스코프이다.
+```java
+@Scope("singleton")
+@Scope("prototype")
+```
+
+### 싱글톤 빈에서 프로토타입 빈 사용
+싱글톤 빈에서 프로토타입 빈 사용 시 싱글톤 빈 생성 시점에 의존관계 주입을 하기 때문에, 의도와 다르게 최초 주입된 프로토타입 빈을 계속 사용하게 된다.  
+이러한 문제를 해결하기 위해 Provider를 사용하여 의존관계 조회(DL) 한다.
+
+### ObjectProvider
+지정한 빈을 컨테이너에서 대신 찾아주는 DL 서비스를 제공하는 것이 바로 ObjectProvider 이다. 참고로 과거에는
+ObjectFactory 가 있었는데, 여기에 편의 기능을 추가해서 ObjectProvider 가 만들어졌다.
+
+### Provider
+마지막 방법은 javax.inject.Provider 라는 JSR-330 자바 표준을 사용하는 방법이다.
+스프링 부트 3.0은 jakarta.inject.Provider 사용한다
+
+### 웹 스코프
+웹 환경에서만 동작한다.
+* <b>request</b> : HTTP 요청 하나가 들어오고 나갈 때까지 유지되는 스코프.
+* <b>session</b> : HTTP Session과 동일한 생명주기를 가지는 스코프.
+
+---
