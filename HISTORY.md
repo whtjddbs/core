@@ -284,5 +284,5 @@ implementation 'org.springframework.boot:spring-boot-starter-web'
 * <b>session</b> : HTTP Session과 동일한 생명주기를 가지는 스코프.
 
 ### request 스코프 예제
-
+request 스코프 빈은 http요청마다 생성되기 때문에 싱글톤 빈에서 DI할 경우 빈을 찾을 수 없어 에러가 발생하니 Provider를 사용해 DL한다. 
 ---
