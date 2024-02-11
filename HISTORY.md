@@ -284,5 +284,42 @@ implementation 'org.springframework.boot:spring-boot-starter-web'
 * <b>session</b> : HTTP Session과 동일한 생명주기를 가지는 스코프.
 
 ### request 스코프 예제
-request 스코프 빈은 http요청마다 생성되기 때문에 싱글톤 빈에서 DI할 경우 빈을 찾을 수 없어 에러가 발생하니 Provider를 사용해 DL한다. 
+!!! 주의점:  
+request 스코프 빈은 http요청마다 생성되기 때문에 싱글톤 빈에서 DI할 경우 빈을 찾을 수 없어 에러가 발생한다.  
+```
+Error creating bean with name 'myLogger': Scope 'request' is not active for the 
+current thread; consider defining a scoped proxy for this bean if you intend to 
+refer to it from a singleton;
+```
+### 스코프와 Provider
+첫번째 해결방안은 앞서 배운 Provider를 사용하는 것이다.  
+```java
+@Service
+@RequiredArgsConstructor
+public class LogDemoService {
+ private final ObjectProvider<MyLogger> myLoggerProvider;
+ public void logic(String id) {
+ MyLogger myLogger = myLoggerProvider.getObject();
+ myLogger.log("service id = " + id);
+ }
+}
+```
+* ```ObjectProvider``` 덕분에 ```ObjectProvider.getObject()``` 를 호출하는 시점까지 request scope 빈의
+생성을 지연할 수 있다.
+* ```ObjectProvider.getObject()``` 를 호출하시는 시점에는 HTTP 요청이 진행중이므로 request scope 빈
+의 생성이 정상 처리된다.
+  
+### 스코프와 프록시
+두번째 해결방안으로 프록시 방법이 있다.  
+```java
+@Component
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class MyLogger {
+}
+```
+* 적용 대상이 인터페이스가 아닌 클래스면 ```TARGET_CLASS``` 를 선택  
+* 적용 대상이 인터페이스면 ```INTERFACES``` 를 선택  
+
+이렇게 하면 MyLogger의 가짜 프록시 클래스를 만들어두고 HTTP request와 상관 없이 가짜 프록시 클래스를 다른 빈에 미리 주입해 둘 수 있다
+
 ---
